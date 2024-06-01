@@ -83,7 +83,7 @@ default_values = [
 with st.form(key='input_form'):
     st.write("### Input Features")
     feature_inputs = [st.number_input(feature_names[i], value=default_values[i]) for i in range(len(feature_names))]
-    submit_button = st.form_submit_button(label='Predict')
+    submit_button = st.form_submit_button(label='Predict')  # Moved submit button here
 
 # Make prediction based on user input
 if submit_button:
