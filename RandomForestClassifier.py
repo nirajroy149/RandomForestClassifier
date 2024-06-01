@@ -58,27 +58,25 @@ with open('model.pkl', 'rb') as f:
 # Create a form for user input
 st.write("## Predict Bird Type")
 
-# Feature names and default values
+# Feature names
 feature_names = [
     "zcr_mean", "zcr_std", "spectral_centroid", "mean_spectral_rolloff", "std_spectral_rolloff",
     "spectral_bandwidth", "chroma1", "chroma2", "chroma3", "chroma4", "chroma5", "chroma6", 
-    "chroma7", "chroma8", "chroma9", "chroma10", "chroma11", "chroma12", "rms", "spectral_contrast1", 
-    "spectral_contrast2", "spectral_contrast3", "spectral_contrast4", "spectral_contrast5", 
-    "spectral_contrast6", "spectral_contrast7", "tonnetz1", "tonnetz2", "tonnetz3", "tonnetz4", 
-    "tonnetz5", "tonnetz6", "mfcc1", "mfcc2", "mfcc3", "mfcc4", "mfcc5", "mfcc6", "mfcc7", 
-    "mfcc8", "mfcc9", "mfcc10", "mfcc11", "mfcc12", "mfcc13", "mfcc14", "mfcc15", "mfcc16", 
-    "mfcc17", "mfcc18", "mfcc19", "mfcc20", "mfcc21", "mfcc22", "mfcc23", "mfcc24", "mfcc25", "mfcc26"
+    "chroma7", "chroma8", "chroma9", "chroma10", "chroma11", "chroma12", "mfcc1", "mfcc2", "mfcc3", 
+    "mfcc4", "mfcc5", "mfcc6", "mfcc7", "mfcc8", "mfcc9", "mfcc10", "mfcc11", "mfcc12", "mfcc13", 
+    "mfcc14", "mfcc15", "mfcc16", "mfcc17", "mfcc18", "mfcc19", "mfcc20", "mfcc21", "mfcc22", 
+    "mfcc23", "mfcc24", "mfcc25", "mfcc26"
 ]
 
-default_values = [
-    0.351091, 0.051202, 4376.084267, 6666.248380, 1496.420809, 2154.197311, 0.280201, 0.404125, 
-    0.513666, 0.619383, 0.497849, 0.385019, 0.298793, 0.333074, 0.407158, 0.412058, 0.398303, 
-    0.431288, 0.205087, 21.940492, 21.854172, 22.125953, 22.079578, 22.085982, 22.028218, 
-    22.095961, -1.352716, -1.606311, -1.381885, -1.587543, -1.583343, -1.406742, -3.675927, 
-    4.868219, 2.869121, -4.413172, -2.730347, -1.612245, 1.525317, -3.346588, 1.095379, 
-    -3.545896, -2.641084, -3.205458, 0.035301, -3.169244, -3.262197, -3.597658, -6.942390, 
-    2.342945, -4.922446, 10.159241, -1.919533, -1.433039, -3.299443, 0.066580 
-]
+# Default values for the features
+default_values = [0.351090641, 0.051201837, 4376.084267, 6666.24838, 1496.420809, 2154.197311, 
+                  0.280201048, 0.404124886, 0.513666272, 0.663726926, 0.345381081, 0.305490345, 
+                  0.273532033, 0.281354696, 0.24505122, 0.312662661, 0.247952819, 0.245751858, 
+                  -542.4055176, -94.81381226, -83.49885559, 32.07971191, 24.36644554, 17.66520309, 
+                  -9.617711067, -21.92518806, 1.593942881, 2.228652, 10.17960167, 10.20607471, 
+                  -16.90008926, -0.006378755, -3.456950188, 4.543880939, 9.178504944, 
+                  -3.597657681, -6.942389965, 2.342945099, -4.922445774, 10.15924072, 
+                  -1.919533253, -1.433038712, -3.299443483, 0.0665804]
 
 # Create a form for user input
 st.write("## Predict Bird Type")
