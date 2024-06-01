@@ -58,9 +58,36 @@ with open('model.pkl', 'rb') as f:
 # Create a form for user input
 st.write("## Predict Bird Type")
 
+##################################################
+
+# Feature names and default values
+feature_names = [
+    "zcr_mean", "zcr_std", "spectral_centroid", "mean_spectral_rolloff", "std_spectral_rolloff",
+    "spectral_bandwidth", "chroma1", "chroma2", "chroma3", "chroma4", "chroma5", "chroma6", 
+    "chroma7", "chroma8", "chroma9", "chroma10", "chroma11", "chroma12", "rms", "spectral_contrast1", 
+    "spectral_contrast2", "spectral_contrast3", "spectral_contrast4", "spectral_contrast5", 
+    "spectral_contrast6", "spectral_contrast7", "tonnetz1", "tonnetz2", "tonnetz3", "tonnetz4", 
+    "tonnetz5", "tonnetz6", "mfcc1", "mfcc2", "mfcc3", "mfcc4", "mfcc5", "mfcc6", "mfcc7", 
+    "mfcc8", "mfcc9", "mfcc10", "mfcc11", "mfcc12", "mfcc13", "mfcc14", "mfcc15", "mfcc16", 
+    "mfcc17", "mfcc18", "mfcc19", "mfcc20", "mfcc21", "mfcc22", "mfcc23", "mfcc24", "mfcc25", "mfcc26"
+]
+
+default_values = [
+    0.351091, 0.051202, 4376.084267, 6666.248380, 1496.420809, 2154.197311, 0.280201, 0.404125, 
+    0.513666, 0.619383, 0.497849, 0.385019, 0.298793, 0.333074, 0.407158, 0.412058, 0.398303, 
+    0.431288, 0.205087, 21.940492, 21.854172, 22.125953, 22.079578, 22.085982, 22.028218, 
+    22.095961, -1.352716, -1.606311, -1.381885, -1.587543, -1.583343, -1.406742, -3.675927, 
+    4.868219, 2.869121, -4.413172, -2.730347, -1.612245, 1.525317, -3.346588, 1.095379, 
+    -3.545896, -2.641084, -3.205458, 0.035301, -3.169244, -3.262197, -3.597658, -6.942390, 
+    2.342945, -4.922446, 10.159241, -1.919533, -1.433039, -3.299443, 0.066580 
+]
+
+###############################################
+
+
 with st.form(key='input_form'):
     st.write("### Input Features")
-    feature_inputs = [st.number_input(f"Feature {i+1}") for i in range(44)]
+    feature_inputs = [st.number_input(feature_names[i], value=default_values[i]) for i in range(len(feature_names))]
     submit_button = st.form_submit_button(label='Predict')
 
 # Make prediction based on user input
@@ -71,3 +98,19 @@ if submit_button:
     bird_types = ['astfly', 'bulori', 'warvir', 'woothr']
     predicted_bird = bird_types[prediction[0]]
     st.write(f"Predicted Bird Type: {predicted_bird}")
+
+
+
+# with st.form(key='input_form'):
+#     st.write("### Input Features")
+#     feature_inputs = [st.number_input(f"Feature {i+1}") for i in range(44)]
+#     submit_button = st.form_submit_button(label='Predict')
+
+# # Make prediction based on user input
+# if submit_button:
+#     user_data = np.array([feature_inputs])
+#     user_data = loaded_scaler.transform(user_data)
+#     prediction = loaded_model.predict(user_data)
+#     bird_types = ['astfly', 'bulori', 'warvir', 'woothr']
+#     predicted_bird = bird_types[prediction[0]]
+#     st.write(f"Predicted Bird Type: {predicted_bird}")
