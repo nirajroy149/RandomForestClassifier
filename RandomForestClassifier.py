@@ -96,7 +96,6 @@
 #     bird_types = ['astfly', 'bulori', 'warvir', 'woothr']
 #     st.write("Predicted Bird Type:", bird_types[prediction[0]])
 
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -181,11 +180,11 @@ with st.form(key='input_form'):
     feature_inputs = [st.number_input(feature_names[i], value=default_values[i]) for i in range(len(feature_names))]
     submit_button = st.form_submit_button(label='Predict')  # Moved submit button here
 
-    # Button to generate random values
-    if st.button("Generate Random Values"):
-        random_values = generate_random_values()
-        for i in range(len(feature_names)):
-            feature_inputs[i].number_input(label=feature_names[i], value=random_values[i])
+# Button to generate random values
+if st.button("Generate Random Values"):
+    random_values = generate_random_values()
+    for i in range(len(feature_names)):
+        st.number_input(label=feature_names[i], value=random_values[i])
 
 # Make prediction based on user input
 if submit_button:
