@@ -4,6 +4,7 @@ import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 import librosa
+import pickle
 
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder, StandardScaler
@@ -27,7 +28,8 @@ y = LabelEncoder().fit_transform(dataset.iloc[:, -1])
 st.write("Encoded Labels:", y)
 
 # Standardize the features
-x = StandardScaler().fit_transform(np.array(dataset.iloc[:, :-1], dtype=float))
+scaler = StandardScaler().fit(np.array(dataset.iloc[:, :-1], dtype=float))
+x = scaler.transform(np.array(dataset.iloc[:, :-1], dtype=float))
 st.write("Standardized Features Shape:", x.shape)
 
 # Split the dataset
@@ -41,35 +43,17 @@ model.fit(x_train, y_train)
 accuracy = model.score(x_test, y_test)
 st.write("Random Forest's Accuracy with 400 estimators and max depth 60: %.3f" % accuracy)
 
-# Re-train the model with different parameters
-model = RandomForestClassifier(n_estimators=200)
-model.fit(x_train, y_train)
-accuracy = model.score(x_test, y_test)
-st.write("Random Forest's Accuracy with 200 estimators: %.3f" % accuracy)
+# Save the trained scaler and model to reuse for prediction
+with open('scaler.pkl', 'wb') as f:
+    pickle.dump(scaler, f)
+with open('model.pkl', 'wb') as f:
+    pickle.dump(model, f)
 
-model = RandomForestClassifier(criterion="gini", max_depth=10)
-model.fit(x_train, y_train)
-accuracy = model.score(x_test, y_test)
-st.write("Random Forest's Accuracy with Gini criterion and max depth 10: %.3f" % accuracy)
-
-# Predictions and evaluation
-y_pred = model.predict(x_test)
-st.write('Final Model Accuracy: %.3f' % accuracy_score(y_test, y_pred))
-st.write("Classification Report:")
-st.text(classification_report(y_test, y_pred))
-
-# Confusion matrix
-cm = confusion_matrix(y_test, y_pred)
-st.write("Confusion Matrix:")
-st.dataframe(cm)
-
-# Heatmap for the confusion matrix
-st.write("Confusion Matrix Heatmap:")
-fig, ax = plt.subplots()
-sns.heatmap(cm, annot=True, cmap='Blues', xticklabels=['astfly', 'bulori', 'warvir', 'woothr'], yticklabels=['astfly', 'bulori', 'warvir', 'woothr'], ax=ax)
-plt.xlabel('Predicted')
-plt.ylabel('Truth')
-st.pyplot(fig)
+# Load the scaler and model for prediction
+with open('scaler.pkl', 'rb') as f:
+    loaded_scaler = pickle.load(f)
+with open('model.pkl', 'rb') as f:
+    loaded_model = pickle.load(f)
 
 # Create a form for user input
 st.write("## Predict Bird Type")
@@ -99,8 +83,8 @@ with st.form(key='input_form'):
 if submit_button:
     user_data = np.array([[feature_1, feature_2, feature_3, feature_4, feature_5, feature_6, feature_7, feature_8,
                            feature_9, feature_10, feature_11, feature_12, feature_13, feature_14, feature_15, feature_16]])
-    user_data = StandardScaler().fit_transform(user_data)
-    prediction = model.predict(user_data)
+    user_data = loaded_scaler.transform(user_data)
+    prediction = loaded_model.predict(user_data)
     bird_types = ['astfly', 'bulori', 'warvir', 'woothr']
     predicted_bird = bird_types[prediction[0]]
     st.write(f"Predicted Bird Type: {predicted_bird}")
