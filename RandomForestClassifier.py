@@ -60,29 +60,12 @@ st.write("## Predict Bird Type")
 
 with st.form(key='input_form'):
     st.write("### Input Features")
-    feature_1 = st.number_input("Feature 1")
-    feature_2 = st.number_input("Feature 2")
-    feature_3 = st.number_input("Feature 3")
-    feature_4 = st.number_input("Feature 4")
-    feature_5 = st.number_input("Feature 5")
-    feature_6 = st.number_input("Feature 6")
-    feature_7 = st.number_input("Feature 7")
-    feature_8 = st.number_input("Feature 8")
-    feature_9 = st.number_input("Feature 9")
-    feature_10 = st.number_input("Feature 10")
-    feature_11 = st.number_input("Feature 11")
-    feature_12 = st.number_input("Feature 12")
-    feature_13 = st.number_input("Feature 13")
-    feature_14 = st.number_input("Feature 14")
-    feature_15 = st.number_input("Feature 15")
-    feature_16 = st.number_input("Feature 16")
-
+    feature_inputs = [st.number_input(f"Feature {i+1}") for i in range(44)]
     submit_button = st.form_submit_button(label='Predict')
 
 # Make prediction based on user input
 if submit_button:
-    user_data = np.array([[feature_1, feature_2, feature_3, feature_4, feature_5, feature_6, feature_7, feature_8,
-                           feature_9, feature_10, feature_11, feature_12, feature_13, feature_14, feature_15, feature_16]])
+    user_data = np.array([feature_inputs])
     user_data = loaded_scaler.transform(user_data)
     prediction = loaded_model.predict(user_data)
     bird_types = ['astfly', 'bulori', 'warvir', 'woothr']
