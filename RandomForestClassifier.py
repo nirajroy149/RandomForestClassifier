@@ -80,6 +80,9 @@ default_values = [
     2.342945, -4.922446, 10.159241, -1.919533, -1.433039, -3.299443, 0.066580 
 ]
 
+# Create a form for user input
+st.write("## Predict Bird Type")
+
 with st.form(key='input_form'):
     st.write("### Input Features")
     feature_inputs = [st.number_input(feature_names[i], value=default_values[i]) for i in range(len(feature_names))]
@@ -91,5 +94,4 @@ if submit_button:
     user_data = loaded_scaler.transform(user_data)
     prediction = loaded_model.predict(user_data)
     bird_types = ['astfly', 'bulori', 'warvir', 'woothr']
-    predicted_bird = bird_types[prediction[0]]
-    st.write(f"Predicted Bird Type: {predicted_bird}")
+    st.write("Predicted Bird Type:", bird_types[prediction[0]])
